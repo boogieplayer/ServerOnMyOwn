@@ -25,9 +25,33 @@ VERSION='1.0'
 ## PREPARATION
 # ONLY ROOT
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root"
+   echo -e "${RED}This script must be run as root${END}"
    exit 1
 fi
+
+# ONLY DEBIAN
+
+# Debian Detection (Issue File)
+if grep -iq "debian" /etc/issue; then
+	# Set Distribution To Debian
+	DISTRIBUTION='debian'
+fi
+
+# Debian Detection (LSB Release)
+if command -v lsb_release &> /dev/null; then
+	if lsb_release -a 2> /dev/null | grep -iq "debian"; then
+		# Set Distribution To Debian
+		DISTRIBUTION='debian'
+	fi
+fi
+
+if [ $DISTRIBUTION != "debian" ]; then
+	# Error Message
+	echo -e "${RED}Your distribution is not a DEBIAN o.O${END}"
+	# Exit If Not Supported
+	exit 1
+fi
+
 
 # PLEASE MY EGO
 echo -e """${CYAN}
