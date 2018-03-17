@@ -1,6 +1,10 @@
 #!/bin/bash
 ##
 
+# L.A.M.P Serveur installation
+# DEBIAN 9
+# SSH acces with ROOT account
+
 clear
 
 ## CONSTANTES ##
@@ -39,3 +43,7 @@ echo -e """${CYAN}
    ${GREEN}Version : $VERSION${END}
    ${GREEN}Enjoy !${END}
 """
+
+## HERE WE GO
+
+
