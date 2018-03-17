@@ -11,5 +11,5 @@ CYAN='\033[0;36m'
 END='\033[0m'
 
 # GENERATE PASSWORD
-PASSWORD_SQL = $(dd bs=30 count=1 if=/dev/urandom 2>/dev/null | base64 | tr +/ 0A)
+PASSWORD_SQL = $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
