@@ -123,9 +123,8 @@ echo -e "${PURPLE}Install SSH server is skipped${END}"
 fi
 
 # Install a shell text editor
-# No war her, vim & nano are installed
+# No war here, vim & nano are installed
 # Peace
-
 echo -e "${CYAN}Install text editor ?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
@@ -140,3 +139,18 @@ echo -e "${PURPLE}Install text editor is skipped${END}"
 
 fi
 
+# Change the default Shell
+echo -e "${CYAN}Change the default Shell ?"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's Change the default Shell"
+echo -e "${YELLOW}Use dash as the default system shell (/bin/sh)? -> ${GREEN}no${END}"
+
+dpkg-reconfigure dash
+
+else
+echo -e "${PURPLE}Change the default Shell is skipped${END}"
+
+fi
