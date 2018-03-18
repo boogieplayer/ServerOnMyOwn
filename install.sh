@@ -19,6 +19,9 @@ END='\033[0m'
 # GENERATE PASSWORD
 PASSWORD_SQL=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
+# SERVER NAME COMPLATE FQN
+HOSTNAMEFQN=$(hostname -f)
+
 # MISCANDELOUS
 AUTEUR='boogieplayer'
 VERSION='1.0'
@@ -57,7 +60,7 @@ fi
 echo -e "${CYAN}this is your sources list${END}"
 cat /etc/apt/sources.list
 
-echo -e "${CYAN}DO want to update it ?"
+echo -e "${CYAN}DO want to update it?"
 read -p "Yes or No [y/N]: " -e -i N option
 echo -e "${END}"
 
@@ -79,7 +82,7 @@ echo -e "${PURPLE}Update sources list is skipped${END}"
 fi
 
 # Update and Upgrade ?
-echo -e "${CYAN}UPDATE and UPGRADE ?"
+echo -e "${CYAN}UPDATE and UPGRADE?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
@@ -108,7 +111,7 @@ echo -e """${CYAN}
 
 ## HERE WE GO
 # Install the SSH server
-echo -e "${CYAN}Install the SSH server ?"
+echo -e "${CYAN}Install the SSH server?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
@@ -125,7 +128,7 @@ fi
 # Install a shell text editor
 # No war here, vim & nano are installed
 # Peace
-echo -e "${CYAN}Install text editor ?"
+echo -e "${CYAN}Install text editor?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
@@ -140,7 +143,7 @@ echo -e "${PURPLE}Install text editor is skipped${END}"
 fi
 
 # Change the default Shell
-echo -e "${CYAN}Change the default Shell ?"
+echo -e "${CYAN}Change the default Shell?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
@@ -152,5 +155,42 @@ dpkg-reconfigure dash
 
 else
 echo -e "${PURPLE}Change the default Shell is skipped${END}"
+
+fi
+
+# Synchronize the System Clock
+echo -e "${CYAN}Synchronize the System Clock and configure it?"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's Synchronize the System Clock${END}"
+
+apt-get install -y ntp
+# reconfigure /etc/ntp.conf with french ntp server you can remove the two lines below
+cp /etc/ntp.conf /etc/ntp.conf.old
+sed -i 's|#server ntp.your-provider.example|#server ntp.your-provider.example\nserver 0.fr.pool.ntp.org prefer\nserver 1.fr.pool.ntp.org\nserver 2.fr.pool.ntp.org\nserver 3.fr.pool.ntp.org|g' /etc/ntp.conf
+#
+
+
+else
+echo -e "${PURPLE}Synchronize the System Clock is skipped${END}"
+
+fi
+
+# Install Postfix, Dovecot, MySQL, rkhunter, and Binutils
+echo -e "${CYAN}Install Postfix, Dovecot, MySQL, rkhunter, and Binutils?"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's Install Postfix, Dovecot, MySQL, rkhunter, and Binutils"
+echo -e "${YELLOW}General type of mail configuration: -> ${GREEN}Internet Site${END}"
+echo -e "${YELLOW}System mail name:  -> ${GREEN}$HOSTNAMEFQN${END}"
+
+apt-get install -y postfix postfix-mysql postfix-doc mariadb-client mariadb-server openssl getmail4 rkhunter binutils dovecot-imapd dovecot-pop3d dovecot-mysql dovecot-sieve dovecot-lmtpd sudo
+
+else
+echo -e "${PURPLE}Install Postfix, Dovecot, MySQL, rkhunter, and Binutils is skipped${END}"
 
 fi
