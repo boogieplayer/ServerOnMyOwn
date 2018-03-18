@@ -78,6 +78,19 @@ echo -e "${PURPLE}Update sources list is skipped${END}"
 
 fi
 
+# Update and Upgrade ?
+echo -e "${CYAN}UPDATE and UPGRADE ?"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's update and upgrade${END}"
+
+apt update && apt upgrade -y
+apt-get autoremove
+
+fi
+
 # PLEASE MY EGO
 echo -e """${CYAN}
  ____   ___   ___   ____ ___ _____ ____  _        _ __   _______ ____
@@ -95,7 +108,7 @@ echo -e """${CYAN}
 
 ## HERE WE GO
 # Install the SSH server
-echo -e "${CYAN}Install the SSH server"
+echo -e "${CYAN}Install the SSH server ?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
@@ -113,7 +126,7 @@ fi
 # No war her, vim & nano are installed
 # Peace
 
-echo -e "${CYAN}Install text editor"
+echo -e "${CYAN}Install text editor ?"
 read -p "Yes or No [Y/n]: " -e -i Y option
 echo -e "${END}"
 
