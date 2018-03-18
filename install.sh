@@ -53,6 +53,30 @@ if [ $DISTRIBUTION != "debian" ]; then
 	exit 1
 fi
 
+# Check the sources list, and update it if wished
+echo -e "${CYAN}this is your sources list${END}"
+cat /etc/apt/sources.list
+
+echo -e "${CYAN}DO want to update it ?"
+read -p "Yes or No [y/N]: " -e -i N option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's update sources list${END}"
+cp /etc/apt/sources.list /etc/apt/sources.list.old
+
+cat >/etc/apt/sources.list <<EOF
+deb http://ftp.us.debian.org/debian/ stretch main contrib non-free
+deb-src http://ftp.us.debian.org/debian/ stretch main contrib non-free
+
+deb http://security.debian.org/debian-security stretch/updates main contrib non-free
+deb-src http://security.debian.org/debian-security stretch/updates main contrib non-free
+EOF
+
+else
+echo -e "${PURPLE}Update sources list is skipped${END}"
+
+fi
 
 # PLEASE MY EGO
 echo -e """${CYAN}
@@ -71,20 +95,35 @@ echo -e """${CYAN}
 
 ## HERE WE GO
 # Install the SSH server
-echo ""
-echo "${CYAN}Install the SSH server${END}"
-read -p "${CYAN}Yes or No [Y/n]: ${END}" -e -i Y option
+echo -e "${CYAN}Install the SSH server"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
 
 if [ $option = "y" ] || [ $option = "Y" ]; then
-echo ""
-echo "${GREEN}Let's install the SSH serveur${END}"
+echo -e "${GREEN}Let's install the SSH serveur${END}"
 
 apt-get install -y ssh openssh-server
 
 else
-echo ""
-echo "${PURPLE}Install SSH server is skipped${END}"
+echo -e "${PURPLE}Install SSH server is skipped${END}"
 
 fi
 
+# Install a shell text editor
+# No war her, vim & nano are installed
+# Peace
+
+echo -e "${CYAN}Install text editor"
+read -p "Yes or No [Y/n]: " -e -i Y option
+echo -e "${END}"
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo -e "${GREEN}Let's install vim and nano${END}"
+
+apt-get install -y nano vim-nox
+
+else
+echo -e "${PURPLE}Install text editor is skipped${END}"
+
+fi
 
