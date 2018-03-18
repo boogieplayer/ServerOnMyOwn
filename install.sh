@@ -26,6 +26,21 @@ HOSTNAMEFQN=$(hostname -f)
 AUTEUR='boogieplayer'
 VERSION='1.0'
 
+# PLEASE MY EGO
+echo -e """${CYAN}
+ ____   ___   ___   ____ ___ _____ ____  _        _ __   _______ ____
+| __ ) / _ \ / _ \ / ___|_ _| ____|  _ \| |      / \\ \ / / ____|  _ \
+|  _ \| | | | | | | |  _ | ||  _| | |_) | |     / _ \\ V /|  _| | |_) |
+| |_) | |_| | |_| | |_| || || |___|  __/| |___ / ___ \| | | |___|  _ <
+|____/ \___/ \___/ \____|___|_____|_|   |_____/_/   \_\_| |_____|_| \_\
+
+
+   ${YELLOW}Server On My Own - DEBIAN${END}
+   ${GREEN}POWERED BY $AUTEUR${END}
+   ${GREEN}Version : $VERSION${END}
+   ${GREEN}Enjoy !${END}
+"""
+
 ## PREPARATION
 # ONLY ROOT
 if [[ $EUID -ne 0 ]]; then
@@ -92,22 +107,10 @@ echo -e "${GREEN}Let's update and upgrade${END}"
 apt update && apt upgrade -y
 apt-get autoremove
 
+else
+echo -e "${PURPLE}UPDATE and UPGRADE is skipped${END}"
+
 fi
-
-# PLEASE MY EGO
-echo -e """${CYAN}
- ____   ___   ___   ____ ___ _____ ____  _        _ __   _______ ____
-| __ ) / _ \ / _ \ / ___|_ _| ____|  _ \| |      / \\ \ / / ____|  _ \
-|  _ \| | | | | | | |  _ | ||  _| | |_) | |     / _ \\ V /|  _| | |_) |
-| |_) | |_| | |_| | |_| || || |___|  __/| |___ / ___ \| | | |___|  _ <
-|____/ \___/ \___/ \____|___|_____|_|   |_____/_/   \_\_| |_____|_| \_\
-
-
-   ${YELLOW}Server On My Own - DEBIAN${END}
-   ${GREEN}POWERED BY $AUTEUR${END}
-   ${GREEN}Version : $VERSION${END}
-   ${GREEN}Enjoy !${END}
-"""
 
 ## HERE WE GO
 # Install the SSH server
