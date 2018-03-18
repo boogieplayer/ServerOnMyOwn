@@ -12,6 +12,7 @@ clear
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 RED='\033[0;31m'
+PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 END='\033[0m'
 
@@ -69,5 +70,21 @@ echo -e """${CYAN}
 """
 
 ## HERE WE GO
+# Install the SSH server
+echo ""
+echo "${CYAN}Install the SSH server${END}"
+read -p "${CYAN}Yes or No [Y/n]: ${END}" -e -i Y option
+
+if [ $option = "y" ] || [ $option = "Y" ]; then
+echo ""
+echo "${GREEN}Let's install the SSH serveur${END}"
+
+apt-get install -y ssh openssh-server
+
+else
+echo ""
+echo "${PURPLE}Install SSH server is skipped${END}"
+
+fi
 
 
