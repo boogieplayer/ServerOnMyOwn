@@ -278,11 +278,13 @@ EOF
 
 	if grep -Fxq "mysql soft nofile 65535" /etc/security/limits.conf
 		then
+		echo
+		else
 		cp /etc/security/limits.conf /etc/security/limits.conf.old
-		cat >>/etc/security/limits.conf <<EOF
-		mysql soft nofile 65535
-		mysql hard nofile 65535
-		EOF
+cat >>/etc/security/limits.conf <<EOF
+mysql soft nofile 65535
+mysql hard nofile 65535
+EOF
 	fi
 
 else
